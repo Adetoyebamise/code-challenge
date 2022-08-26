@@ -14,25 +14,19 @@ class AddressParse(APIView):
     renderer_classes = [JSONRenderer]
 
     def get(self, request):
-        print(request.query_params)
         # TODO: Flesh out this method to parse an address string using the
         # parse() method and return the parsed components to the frontend.
         address = request.query_params.get("address",None)
         print(address)
         if address:
-            print(usaddress.tag(address))
             response = {'input_string':address}
             obj = {}
             address_components, address_type = self.parse(address)
-            print(address_components)
-            print(address_type)
             if address_type is 'Ambiguous':
                 response['error'] = 'Unknown address'
                 return Response(response, status=400)
             for x in address_components:
-                # print(x)
                 obj[x[1]]=x[0]
-            print(obj)
             response['address_components'] = address_components
             response['address_type'] = address_type
             return Response(response)
