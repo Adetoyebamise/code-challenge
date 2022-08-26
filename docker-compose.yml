@@ -12,7 +12,7 @@ services:
       # Map ports on your computer to ports on your container. This allows you,
       # e.g., to visit your containerized application in a browser on your
       # computer.
-      - 8000:8000
+      - 8080:8080
     depends_on:
       postgres:
         condition: service_healthy
@@ -28,7 +28,7 @@ services:
       DJANGO_MANAGEPY_MIGRATE: "on"
       DJANGO_ALLOWED_HOSTS: 172.17.0.1,localhost,127.0.0.1
     entrypoint: /app/docker-entrypoint.sh
-    command: python manage.py runserver 0.0.0.0:8000
+    command: python manage.py runserver 0.0.0.0:8080
 
   postgres:
     container_name: parserator-postgres
